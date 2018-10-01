@@ -6,7 +6,10 @@ class AddIngredient extends React.Component {
   state = { name: '' }
 
   handleSubmit = (e) => {
-
+    e.preventDefault()
+    const ingredient = { name: this.state.name}
+    axios.post('/api/ingredients', {ingredient})
+      .then( () => this.resetForm() )
   }
   
   handleChange = (e) => {
@@ -14,7 +17,8 @@ class AddIngredient extends React.Component {
   }
 
   resetForm = () => {
-
+    this.setState({ name: '' })
+    this.props.history.push('/ingredients')
   }
 
   render (){
