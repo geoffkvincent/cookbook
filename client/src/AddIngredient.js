@@ -33,7 +33,9 @@ class AddIngredient extends React.Component {
         <Form.Button type="button" onClick={this.resetForm}>
           Cancel
         </Form.Button>
-        <Form.Button>Add</Form.Button>
+        <Form.Button type="button" onClick={this.handleSubmit}>
+          Add
+        </Form.Button>
       </Form>
     )
   }
