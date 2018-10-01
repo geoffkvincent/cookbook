@@ -1,12 +1,17 @@
 class Api::RecipesController < ApplicationController
-  before_action : set_recipe, only: [:show, :update, :destroy]
+  before_action :set_recipe, only: [:show, :update, :destroy]
 
   def index
     render json: Recipe.all
   end
 
   def show
-    render json: @recipe
+    render json: {
+      id: @recipe.id,
+      name: @recipe.name,
+      description: @recipe.description,
+      ingredients: @recipe.recipe_ingredients
+    }
   end
 
   def create
@@ -15,7 +20,7 @@ class Api::RecipesController < ApplicationController
     if recipe.save
       render json: recipe
     else
-      render_errors(recipe)
+      render_error(recipe)
     end
   end
 
@@ -23,7 +28,7 @@ class Api::RecipesController < ApplicationController
     if @recipe.update(recipe_params)
       render json: @recipe
     else
-      render_errors(@recipe)
+      render_error(@recipe)
     end
   end
 
@@ -32,11 +37,13 @@ class Api::RecipesController < ApplicationController
   end
 
   private
-  def set_recipe
-    @recipe = Recipe.find(params[:id])
-  end
+    def set_recipe
+      @recipe = Recipe.find(params[:id])
+    end
 
-  def resipe_params
-    params.require(:recipe).permit(:name, :description)
-  end
+    def recipe_params
+      params.require(:recipe).permit(:name, :description)
+    end
 end
+
+

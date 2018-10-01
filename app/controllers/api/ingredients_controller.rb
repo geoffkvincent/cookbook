@@ -1,5 +1,5 @@
 class Api::IngredientsController < ApplicationController
-  before_action : set_ingredients, only: [:show, :update, :destroy]
+  before_action :set_ingredients, only: [:show, :update, :destroy]
   def index
     render json: Ingredient.all
   end
